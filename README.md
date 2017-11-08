@@ -48,3 +48,4 @@ Direct query
 ```C#
 var value = connector.GetDataRefValue("sim/cockpit/radios/com1_stdby_freq_hz");
 ```
+NOTE: You must have already subscribed to a DataRef using the Subscribe method.

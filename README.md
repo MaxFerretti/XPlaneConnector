@@ -26,7 +26,14 @@ connector.SendCommand("sim/electrical/battery_1_on");
 
 ### Subscribe to a DataRef
 You can subscribe to as many DataRef you want.
-You can handle the values in three ways:
+In either way you have to call:
+```C#
+connector.Start();
+```
+In order to begin communication with X-Plane.
+Subscribing to DataRef can happen before or after calling Start.
+
+You can obtain the values in three ways:
 
 DataRef event
 ```C#

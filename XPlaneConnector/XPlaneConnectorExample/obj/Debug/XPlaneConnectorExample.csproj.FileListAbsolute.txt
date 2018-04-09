@@ -1,0 +1,12 @@
+C:\Users\max.ECITALIA\Source\Repos\XPlaneConnector\XPlaneConnector\XPlaneConnectorExample\bin\Debug\XPlaneConnectorExample.exe.config
+C:\Users\max.ECITALIA\Source\Repos\XPlaneConnector\XPlaneConnector\XPlaneConnectorExample\bin\Debug\XPlaneConnectorExample.exe
+C:\Users\max.ECITALIA\Source\Repos\XPlaneConnector\XPlaneConnector\XPlaneConnectorExample\bin\Debug\XPlaneConnectorExample.pdb
+C:\Users\max.ECITALIA\Source\Repos\XPlaneConnector\XPlaneConnector\XPlaneConnectorExample\bin\Debug\XPlaneConnector.dll
+C:\Users\max.ECITALIA\Source\Repos\XPlaneConnector\XPlaneConnector\XPlaneConnectorExample\bin\Debug\XPlaneConnector.pdb
+C:\Users\max.ECITALIA\Source\Repos\XPlaneConnector\XPlaneConnector\XPlaneConnectorExample\obj\Debug\XPlaneConnectorExample.csprojResolveAssemblyReference.cache
+C:\Users\max.ECITALIA\Source\Repos\XPlaneConnector\XPlaneConnector\XPlaneConnectorExample\obj\Debug\XPlaneConnectorExample.Form1.resources
+C:\Users\max.ECITALIA\Source\Repos\XPlaneConnector\XPlaneConnector\XPlaneConnectorExample\obj\Debug\XPlaneConnectorExample.Properties.Resources.resources
+C:\Users\max.ECITALIA\Source\Repos\XPlaneConnector\XPlaneConnector\XPlaneConnectorExample\obj\Debug\XPlaneConnectorExample.csproj.GenerateResource.Cache
+C:\Users\max.ECITALIA\Source\Repos\XPlaneConnector\XPlaneConnector\XPlaneConnectorExample\obj\Debug\XPlaneConnectorExample.csproj.CoreCompileInputs.cache
+C:\Users\max.ECITALIA\Source\Repos\XPlaneConnector\XPlaneConnector\XPlaneConnectorExample\obj\Debug\XPlaneConnectorExample.exe
+C:\Users\max.ECITALIA\Source\Repos\XPlaneConnector\XPlaneConnector\XPlaneConnectorExample\obj\Debug\XPlaneConnectorExample.pdb

@@ -15,14 +15,6 @@ Should XPlane crash and restart, this connector can detect that DataRefs aren't 
 NOTE: Every DataRef is always a float, even if the data type is different (int, bool, double, string, array).
 So if you need a bool you will obtain a float that is either 0 or 1.
 
-### Strings (NEW)
-If you need a string (example: sim/aircraft/view/acf_tailnum) it is managed as an array of floats containing an ASCII code on each value.
-Subscribing to sim/aircraft/view/acf_tailnum won't give you the tailnumber.
-In order to get the complete string it's necessary to subscribe to each character individually.
-Subscribing to sim/aircraft/view/acf_tailnum[0], sim/aircraft/view/acf_tailnum[1]... and so on (this DataRef is 40 byte long).
-A new class StringDataRefElement has been created to automatically manage this process.
-See below for usage.
-
 ### Create the connector
 The constructor takes the XPlane IP and port as parameters, default is 127.0.0.1 on port 49000
 
@@ -64,6 +56,23 @@ For DataRef "sim/cockpit/radios/com1_stdby_freq_hz" use XPlaneConnector.DataRefs
 connector.Subscribe(XPlaneConnector.DataRefs.CockpitRadiosCom1FreqHz, 5, (e, v) => {
 
     Console.WriteLine($"{DateTime.Now:HH:mm:ss.fff} - {e.DataRef} - {v}");
+});
+```
+
+### Strings (NEW)
+If you need a string (example: sim/aircraft/view/acf_tailnum) it is managed as an array of floats containing an ASCII code on each value.
+Subscribing to sim/aircraft/view/acf_tailnum won't give you the tailnumber.
+In order to get the complete string it's necessary to subscribe to each character individually.
+Subscribing to sim/aircraft/view/acf_tailnum[0], sim/aircraft/view/acf_tailnum[1]... and so on (this DataRef is 40 byte long).
+A new class StringDataRefElement has been created to automatically manage this process.
+See below for usage.
+
+```C#
+// XPlaneConnector.DataRefs.AircraftViewAcfTailnum is a StringDataRef, in this case value is a string, not a float
+connector.Subscribe(XPlaneConnector.DataRefs.AircraftViewAcfTailnum, 5, (element, value) =>
+{
+
+    Console.WriteLine($"{DateTime.Now:HH:mm:ss.fff} - {e.DataRef} - {v}"); // v is a string
 });
 ```
 

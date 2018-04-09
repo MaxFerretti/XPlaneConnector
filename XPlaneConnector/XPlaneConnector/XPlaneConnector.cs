@@ -23,14 +23,13 @@ namespace XPlaneConnector
         public delegate void RawReceiveHandler(string raw);
         public event RawReceiveHandler OnRawReceive;
 
-        public delegate void DataRefReceived(string dataref, float value);
+        public delegate void DataRefReceived(DataRefElement dataRef);
         public event DataRefReceived OnDataRefReceived;
 
         public delegate void LogHandler(string message);
         public event LogHandler OnLog;
 
-        private List<DataRefElement> dataRefs;
-        private int current_id;
+        private List<DataRefElement> DataRefs;
 
         public DateTime LastReceive { get; internal set; }
         public byte[] LastBuffer { get; internal set; }
@@ -41,12 +40,11 @@ namespace XPlaneConnector
                 return ((IPEndPoint)client.Client.LocalEndPoint);
             }
         }
-        public XPlaneConnector(string ip, int xplanePort)
-        {
 
+        public XPlaneConnector(string ip = "127.0.0.1", int xplanePort = 49000)
+        {
             XPlaneEP = new IPEndPoint(IPAddress.Parse(ip), xplanePort);
-            dataRefs = new List<DataRefElement>();
-            current_id = 0;
+            DataRefs = new List<DataRefElement>();
         }
         public void Start()
         {
@@ -79,7 +77,7 @@ namespace XPlaneConnector
             {
                 while (!token.IsCancellationRequested)
                 {
-                    foreach (var dr in dataRefs)
+                    foreach (var dr in DataRefs)
                         if (dr.Age > MaxDataRefAge)
                             RequestDataRef(dr);
 
@@ -92,7 +90,7 @@ namespace XPlaneConnector
         {
             if (client != null)
             {
-                foreach (var dr in dataRefs)
+                foreach (var dr in DataRefs)
                     Unsubscribe(dr.DataRef);
 
                 if (ts != null)
@@ -112,48 +110,79 @@ namespace XPlaneConnector
             var header = Encoding.UTF8.GetString(buffer, pos, 4);
             pos += 5; // Including tailing 0
 
-            while (pos < buffer.Length)
+            if (header == "RREF") // Ignore other messages
             {
-                if (header == "RREF")
+                while (pos < buffer.Length)
                 {
                     var id = BitConverter.ToInt32(buffer, pos);
                     pos += 4;
 
-                    var value = BitConverter.ToSingle(buffer, pos);
-                    pos += 4;
-
-                    var dataref = dataRefs.SingleOrDefault((dr => dr.Id == id));
-
-                    if (dataref != null)
+                    try
                     {
-                        if (dataref.Update(value))
-                            OnDataRefReceived?.Invoke(dataref.DataRef, value);
+                        var value = BitConverter.ToSingle(buffer, pos);
+                        pos += 4;
+                        foreach (var dr in DataRefs)
+                            if (dr.Update(id, value))
+                                OnDataRefReceived?.Invoke(dr);
+                    }
+                    catch (Exception ex)
+                    {
+                        var error = ex.Message;
                     }
                 }
             }
         }
-        public void SendCommand(string command)
+
+        public void SendCommand(XPlaneCommand command)
         {
             var dg = new XPDatagram();
             dg.Add("CMND");
-            dg.Add(command);
+            dg.Add(command.Command);
 
             client.Send(dg.Get(), dg.Len);
         }
-        public void Subscribe(string dataref, int frequency, Action<DataRefElement, float> onchange = null)
-        {
-            var dr = new DataRefElement
-            {
-                Id = ++current_id,
-                DataRef = dataref,
-                Frequency = frequency,
-                CurrentValue = Single.MinValue
-            };
 
+        public void Subscribe(DataRefElement dataref, int frequency = -1, Action<DataRefElement, float> onchange = null)
+        {
             if (onchange != null)
-                dr.OnValueChange += (e, v) => { onchange(e, v); };
-            dataRefs.Add(dr);
+                dataref.OnValueChange += (e, v) => { onchange(e, v); };
+
+            if (frequency > 0)
+                dataref.Frequency = frequency;
+
+            DataRefs.Add(dataref);
         }
+
+        public void Subscribe(StringDataRefElement dataref, int frequency = -1, Action<StringDataRefElement, string> onchange = null)
+        {
+            //if (onchange != null)
+            //    dataref.OnValueChange += (e, v) => { onchange(e, v); };
+
+            //Subscribe((DataRefElement)dataref, frequency);
+
+            dataref.OnValueChange += (e, v) => { onchange(e, v); };
+
+            for (var c = 0; c < dataref.StringLenght; c++)
+            {
+                var arrayElementDataRef = new DataRefElement
+                {
+                    DataRef = $"{dataref.DataRef}[{c}]",
+                    Description = ""
+                };
+
+                var currentIndex = c;
+                Subscribe(arrayElementDataRef, frequency, (e, v) =>
+                {
+                    var character = Convert.ToChar(Convert.ToInt32(v));
+                    dataref.Update(currentIndex, character);
+                });
+            }
+        }
+
+        private void Subscribe(DataRefElement dataref, int frequency = -1)
+        {
+        }
+
         private void RequestDataRef(DataRefElement element)
         {
             if (client != null)
@@ -170,27 +199,31 @@ namespace XPlaneConnector
                 OnLog?.Invoke($"Requested {element.DataRef}@{element.Frequency}Hz with Id:{element.Id}");
             }
         }
+
         public void Unsubscribe(string dataref)
         {
-            var dr = dataRefs.SingleOrDefault(d => d.DataRef == dataref);
-            var id = 0;
+            var dr = DataRefs.SingleOrDefault(d => d.DataRef == dataref);
 
             if (dr != null)
-                id = dr.Id;
-            else
-                id = ++current_id;
+            {
+                var dg = new XPDatagram();
+                dg.Add("RREF");
+                dg.Add(dr.Id);
+                dg.Add(0);
+                dg.Add(dataref);
+                dg.FillTo(413);
 
-            var dg = new XPDatagram();
-            dg.Add("RREF");
-            dg.Add(id);
-            dg.Add(0);
-            dg.Add(dataref);
-            dg.FillTo(413);
+                client.Send(dg.Get(), dg.Len);
 
-            client.Send(dg.Get(), dg.Len);
-
-            OnLog?.Invoke($"Unsubscribed from {dataref}");
+                OnLog?.Invoke($"Unsubscribed from {dataref}");
+            }
         }
+
+        public void SetDataRefValue(DataRefElement dataref, float value)
+        {
+            SetDataRefValue(dataref.DataRef, value);
+        }
+
         public void SetDataRefValue(string dataref, float value)
         {
             var dg = new XPDatagram();
@@ -201,14 +234,15 @@ namespace XPlaneConnector
 
             client.Send(dg.Get(), dg.Len);
         }
-        public float GetDataRefValue(string dataref)
+        public void SetDataRefValue(string dataref, string value)
         {
-            var dr = dataRefs.SingleOrDefault(d => d.DataRef == dataref);
+            var dg = new XPDatagram();
+            dg.Add("DREF");
+            dg.Add(value);
+            dg.Add(dataref);
+            dg.FillTo(509);
 
-            if (dr != null)
-                return dr.CurrentValue;
-
-            return 0;
+            client.Send(dg.Get(), dg.Len);
         }
         public void QuitXPlane()
         {

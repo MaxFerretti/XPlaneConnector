@@ -40,7 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands.cs" />
     <Compile Include="DataRefElement.cs" />
+    <Compile Include="DataRefs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XPDatagram.cs" />
     <Compile Include="XPlaneConnector.cs" />

@@ -1,0 +1,6 @@
+C:\Users\max.ECITALIA\Source\Repos\XPlaneConnector\XPlaneConnector\XPlaneConnector\bin\Release\XPlaneConnector.dll
+C:\Users\max.ECITALIA\Source\Repos\XPlaneConnector\XPlaneConnector\XPlaneConnector\bin\Release\XPlaneConnector.pdb
+C:\Users\max.ECITALIA\Source\Repos\XPlaneConnector\XPlaneConnector\XPlaneConnector\obj\Release\XPlaneConnector.csprojResolveAssemblyReference.cache
+C:\Users\max.ECITALIA\Source\Repos\XPlaneConnector\XPlaneConnector\XPlaneConnector\obj\Release\XPlaneConnector.dll
+C:\Users\max.ECITALIA\Source\Repos\XPlaneConnector\XPlaneConnector\XPlaneConnector\obj\Release\XPlaneConnector.pdb
+C:\Users\max.ECITALIA\Source\Repos\XPlaneConnector\XPlaneConnector\XPlaneConnector\obj\Release\XPlaneConnector.csproj.CoreCompileInputs.cache

@@ -1,0 +1,5 @@
+C:\Users\max.ECITALIA\Source\Repos\XPlaneConnector\XPlaneConnector\XPlaneConnector\bin\Debug\XPlaneConnector.dll
+C:\Users\max.ECITALIA\Source\Repos\XPlaneConnector\XPlaneConnector\XPlaneConnector\bin\Debug\XPlaneConnector.pdb
+C:\Users\max.ECITALIA\Source\Repos\XPlaneConnector\XPlaneConnector\XPlaneConnector\obj\Debug\XPlaneConnector.dll
+C:\Users\max.ECITALIA\Source\Repos\XPlaneConnector\XPlaneConnector\XPlaneConnector\obj\Debug\XPlaneConnector.pdb
+C:\Users\max.ECITALIA\Source\Repos\XPlaneConnector\XPlaneConnector\XPlaneConnector\obj\Debug\XPlaneConnector.csproj.CoreCompileInputs.cache

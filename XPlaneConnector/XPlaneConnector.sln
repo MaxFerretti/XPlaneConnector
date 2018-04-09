@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPlaneConnector", "XPlaneConnector\XPlaneConnector.csproj", "{2EBBE087-4398-4F77-8ABF-AA4962DBD637}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPlaneConnectorExample", "XPlaneConnectorExample\XPlaneConnectorExample.csproj", "{DE9EA8DE-57D1-42EF-9FBF-FE3DA1347079}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +17,15 @@ Global
 		{2EBBE087-4398-4F77-8ABF-AA4962DBD637}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2EBBE087-4398-4F77-8ABF-AA4962DBD637}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2EBBE087-4398-4F77-8ABF-AA4962DBD637}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE9EA8DE-57D1-42EF-9FBF-FE3DA1347079}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE9EA8DE-57D1-42EF-9FBF-FE3DA1347079}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE9EA8DE-57D1-42EF-9FBF-FE3DA1347079}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE9EA8DE-57D1-42EF-9FBF-FE3DA1347079}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {86B5D05F-A187-4261-AE3A-9EA1B808483D}
 	EndGlobalSection
 EndGlobal

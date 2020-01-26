@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace XPlaneConnectorExample
@@ -6,6 +7,7 @@ namespace XPlaneConnectorExample
     public partial class Form1 : Form
     {
         private XPlaneConnector.XPlaneConnector connector = new XPlaneConnector.XPlaneConnector();
+        CancellationTokenSource igniteToken;
 
         public Form1()
         {
@@ -67,6 +69,18 @@ namespace XPlaneConnectorExample
         private void btQuit_Click(object sender, EventArgs e)
         {
             connector.SendCommand(XPlaneConnector.Commands.OperationQuit);
+        }
+
+        private void btnIgnite_Click(object sender, EventArgs e)
+        {
+            if (igniteToken == null)
+            {
+                igniteToken = connector.StartCommand(XPlaneConnector.Commands.EnginesEngageStarters);
+            } else
+            {
+                igniteToken.Cancel();
+                igniteToken.Dispose();
+            }
         }
     }
 }

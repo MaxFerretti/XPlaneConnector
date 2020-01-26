@@ -142,6 +142,21 @@ namespace XPlaneConnector
             client.Send(dg.Get(), dg.Len);
         }
 
+        public CancellationTokenSource StartCommand(XPlaneCommand command)
+        {
+            var tokenSource = new CancellationTokenSource();
+
+            Task.Run(() =>
+            {
+                while(!tokenSource.IsCancellationRequested)
+                {
+                    SendCommand(command);
+                }
+            }, tokenSource.Token);
+
+            return tokenSource;
+        }
+
         public void Subscribe(DataRefElement dataref, int frequency = -1, Action<DataRefElement, float> onchange = null)
         {
             if (onchange != null)

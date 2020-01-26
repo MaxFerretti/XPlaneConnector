@@ -35,6 +35,7 @@
             this.btNavUp = new System.Windows.Forms.Button();
             this.btNavDown = new System.Windows.Forms.Button();
             this.btQuit = new System.Windows.Forms.Button();
+            this.btnIgnite = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btStart
@@ -107,11 +108,22 @@
             this.btQuit.UseVisualStyleBackColor = true;
             this.btQuit.Click += new System.EventHandler(this.btQuit_Click);
             // 
+            // btnIgnite
+            // 
+            this.btnIgnite.Location = new System.Drawing.Point(174, 318);
+            this.btnIgnite.Name = "btnIgnite";
+            this.btnIgnite.Size = new System.Drawing.Size(75, 23);
+            this.btnIgnite.TabIndex = 8;
+            this.btnIgnite.Text = "IGNITE";
+            this.btnIgnite.UseVisualStyleBackColor = true;
+            this.btnIgnite.Click += new System.EventHandler(this.btnIgnite_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(756, 384);
+            this.Controls.Add(this.btnIgnite);
             this.Controls.Add(this.btQuit);
             this.Controls.Add(this.btNavDown);
             this.Controls.Add(this.btNavUp);
@@ -134,6 +146,7 @@
         private System.Windows.Forms.Button btNavUp;
         private System.Windows.Forms.Button btNavDown;
         private System.Windows.Forms.Button btQuit;
+        private System.Windows.Forms.Button btnIgnite;
     }
 }
 

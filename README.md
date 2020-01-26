@@ -77,3 +77,18 @@ connector.Subscribe(XPlaneConnector.DataRefs.AircraftViewAcfTailnum, 5, (element
 ```
 
 NOTE: You must have already subscribed to a DataRef using the Subscribe method.
+
+### Press&Hold Commands (NEW 2020)
+For commands that have a Press&Hold behaviour like the Ignite command, multiple calls of the SendCommand method is required.
+To simplify this, there's a new method StartCommand that handle the required code in a parallel Task.
+It returns a CancellationTokenSource, to stop the Command just call Cancel on this token.
+
+```C#
+
+var token = connector.StartCommand(XPlaneConnector.Commands.EnginesEngageStarters);
+// Do other things 
+// ...
+// When you want it to stop
+token.Cancel();
+
+```

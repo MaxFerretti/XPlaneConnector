@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 
 namespace XPlaneConnector
 {
@@ -17,7 +16,7 @@ namespace XPlaneConnector
         public string Description { get; set; }
         public float Value { get; set; }
 
-        public delegate void NotifyChangeHandler(DataRefElement element, float newValue);
+        public delegate void NotifyChangeHandler(DataRefElement sender, float newValue);
         public event NotifyChangeHandler OnValueChange;
 
         public DataRefElement()
@@ -60,6 +59,7 @@ namespace XPlaneConnector
 
     public class StringDataRefElement
     {
+        private static readonly object lockElement = new object();
         public string DataRef { get; set; }
         public int Frequency { get; set; }
         public int StringLenght { get; set; }
@@ -75,12 +75,12 @@ namespace XPlaneConnector
             }
         }
 
-        public delegate void NotifyChangeHandler(StringDataRefElement element, string newValue);
+        public delegate void NotifyChangeHandler(StringDataRefElement sender, string newValue);
         public event NotifyChangeHandler OnValueChange;
 
         public void Update(int index, char character)
         {
-            lock (Value)
+            lock (lockElement)
             {
                 var fireEvent = !IsCompletelyInitialized;
 

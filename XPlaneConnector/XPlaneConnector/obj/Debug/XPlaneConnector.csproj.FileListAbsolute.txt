@@ -5,6 +5,5 @@ C:\Users\max.ECITALIA\Source\Repos\XPlaneConnector\XPlaneConnector\XPlaneConnect
 C:\Users\max.ECITALIA\Source\Repos\XPlaneConnector\XPlaneConnector\XPlaneConnector\obj\Debug\XPlaneConnector.csproj.CoreCompileInputs.cache
 C:\Users\mferr\source\repos\XPlaneConnector\XPlaneConnector\XPlaneConnector\bin\Debug\XPlaneConnector.dll
 C:\Users\mferr\source\repos\XPlaneConnector\XPlaneConnector\XPlaneConnector\bin\Debug\XPlaneConnector.pdb
-C:\Users\mferr\source\repos\XPlaneConnector\XPlaneConnector\XPlaneConnector\obj\Debug\XPlaneConnector.csprojAssemblyReference.cache
 C:\Users\mferr\source\repos\XPlaneConnector\XPlaneConnector\XPlaneConnector\obj\Debug\XPlaneConnector.dll
 C:\Users\mferr\source\repos\XPlaneConnector\XPlaneConnector\XPlaneConnector\obj\Debug\XPlaneConnector.pdb

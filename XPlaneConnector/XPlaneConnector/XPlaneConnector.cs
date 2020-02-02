@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace XPlaneConnector
 {
-    public class XPlaneConnector
+    public class XPlaneConnector : IDisposable
     {
         public int CheckInterval_ms = 1000;
         public TimeSpan MaxDataRefAge = TimeSpan.FromSeconds(5);
@@ -41,11 +41,20 @@ namespace XPlaneConnector
             }
         }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="ip">IP of the machine running X-Plane, default 127.0.0.1 (localhost)</param>
+        /// <param name="xplanePort">Port the machine running X-Plane is listening for, default 49000</param>
         public XPlaneConnector(string ip = "127.0.0.1", int xplanePort = 49000)
         {
             XPlaneEP = new IPEndPoint(IPAddress.Parse(ip), xplanePort);
             DataRefs = new List<DataRefElement>();
         }
+
+        /// <summary>
+        /// Initialize the communication with X-Plane machine and starts listening for DataRefs
+        /// </summary>
         public void Start()
         {
             client = new UdpClient();
@@ -86,6 +95,11 @@ namespace XPlaneConnector
 
             }, token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
         }
+
+        /// <summary>
+        /// Stops the comunications with the X-Plane machine
+        /// </summary>
+        /// <param name="timeout"></param>
         public void Stop(int timeout = 5000)
         {
             if (client != null)
@@ -133,6 +147,10 @@ namespace XPlaneConnector
             }
         }
 
+        /// <summary>
+        /// Sends a command
+        /// </summary>
+        /// <param name="command">Command to send</param>
         public void SendCommand(XPlaneCommand command)
         {
             var dg = new XPDatagram();
@@ -142,6 +160,11 @@ namespace XPlaneConnector
             client.Send(dg.Get(), dg.Len);
         }
 
+        /// <summary>
+        /// Sends a command continously. Use return parameter to cancel the send cycle
+        /// </summary>
+        /// <param name="command">Command to send</param>
+        /// <returns>Token to cancel the executing</returns>
         public CancellationTokenSource StartCommand(XPlaneCommand command)
         {
             var tokenSource = new CancellationTokenSource();
@@ -157,6 +180,12 @@ namespace XPlaneConnector
             return tokenSource;
         }
 
+        /// <summary>
+        /// Subscribe to a DataRef, notification will be sent every time the value changes
+        /// </summary>
+        /// <param name="dataref">DataRef to subscribe to</param>
+        /// <param name="frequency">Times per seconds X-Plane will be seding this value</param>
+        /// <param name="onchange">Callback invoked every time a change in the value is detected</param>
         public void Subscribe(DataRefElement dataref, int frequency = -1, Action<DataRefElement, float> onchange = null)
         {
             if (onchange != null)
@@ -168,6 +197,12 @@ namespace XPlaneConnector
             DataRefs.Add(dataref);
         }
 
+        /// <summary>
+        /// Subscribe to a DataRef, notification will be sent every time the value changes
+        /// </summary>
+        /// <param name="dataref">DataRef to subscribe to</param>
+        /// <param name="frequency">Times per seconds X-Plane will be seding this value</param>
+        /// <param name="onchange">Callback invoked every time a change in the value is detected</param>
         public void Subscribe(StringDataRefElement dataref, int frequency = -1, Action<StringDataRefElement, string> onchange = null)
         {
             //if (onchange != null)
@@ -194,6 +229,12 @@ namespace XPlaneConnector
             }
         }
 
+        /// <summary>
+        /// Deprecated, this method has no effect
+        /// </summary>
+        /// <param name="dataref"></param>
+        /// <param name="frequency"></param>
+        [Obsolete]
         private void Subscribe(DataRefElement dataref, int frequency = -1)
         {
         }
@@ -215,6 +256,10 @@ namespace XPlaneConnector
             }
         }
 
+        /// <summary>
+        /// Informs X-Plane to stop sending this DataRef
+        /// </summary>
+        /// <param name="dataref">DataRef to unsubscribe to</param>
         public void Unsubscribe(string dataref)
         {
             var dr = DataRefs.SingleOrDefault(d => d.DataRef == dataref);
@@ -234,11 +279,21 @@ namespace XPlaneConnector
             }
         }
 
+        /// <summary>
+        /// Informs X-Plane to change the value of the DataRef
+        /// </summary>
+        /// <param name="dataref">DataRef that will be changed</param>
+        /// <param name="value">New value of the DataRef</param>
         public void SetDataRefValue(DataRefElement dataref, float value)
         {
             SetDataRefValue(dataref.DataRef, value);
         }
 
+        /// <summary>
+        /// Informs X-Plane to change the value of the DataRef
+        /// </summary>
+        /// <param name="dataref">DataRef that will be changed</param>
+        /// <param name="value">New value of the DataRef</param>
         public void SetDataRefValue(string dataref, float value)
         {
             var dg = new XPDatagram();
@@ -249,6 +304,11 @@ namespace XPlaneConnector
 
             client.Send(dg.Get(), dg.Len);
         }
+        /// <summary>
+        /// Informs X-Plane to change the value of the DataRef
+        /// </summary>
+        /// <param name="dataref">DataRef that will be changed</param>
+        /// <param name="value">New value of the DataRef</param>
         public void SetDataRefValue(string dataref, string value)
         {
             var dg = new XPDatagram();
@@ -259,6 +319,10 @@ namespace XPlaneConnector
 
             client.Send(dg.Get(), dg.Len);
         }
+
+        /// <summary>
+        /// Request X-Plane to close, a notification message will appear
+        /// </summary>
         public void QuitXPlane()
         {
             var dg = new XPDatagram();
@@ -266,6 +330,11 @@ namespace XPlaneConnector
 
             client.Send(dg.Get(), dg.Len);
         }
+
+        /// <summary>
+        /// Inform X-Plane that a system is failed
+        /// </summary>
+        /// <param name="system">Integer value representing the system to fail</param>
         public void Fail(int system)
         {
             var dg = new XPDatagram();
@@ -275,6 +344,11 @@ namespace XPlaneConnector
 
             client.Send(dg.Get(), dg.Len);
         }
+
+        /// <summary>
+        /// Inform X-Plane that a system is back to normal functioning
+        /// </summary>
+        /// <param name="system">Integer value representing the system to recover</param>
         public void Recover(int system)
         {
             var dg = new XPDatagram();
@@ -283,6 +357,12 @@ namespace XPlaneConnector
             dg.Add(system.ToString());
 
             client.Send(dg.Get(), dg.Len);
+        }
+
+        public void Dispose()
+        {
+            client?.Dispose();
+            ts?.Dispose();
         }
     }
 }

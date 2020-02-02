@@ -80,6 +80,7 @@ namespace XPlaneConnectorExample
             {
                 igniteToken.Cancel();
                 igniteToken.Dispose();
+                igniteToken = null;
             }
         }
     }

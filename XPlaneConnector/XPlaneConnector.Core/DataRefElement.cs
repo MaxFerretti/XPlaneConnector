@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Text;
 
 namespace XPlaneConnector.Core
@@ -61,6 +62,7 @@ namespace XPlaneConnector.Core
     public class StringDataRefElement
     {
         private static readonly object lockElement = new object();
+        private static readonly CultureInfo EnCulture = new CultureInfo("en-US");
 
         public string DataRef { get; set; }
         public int Frequency { get; set; }
@@ -97,7 +99,7 @@ namespace XPlaneConnector.Core
                     var current = Value[index];
                     if (current != character)
                     {
-                        Value = Value.Remove(index, 1).Insert(index, character.ToString());
+                        Value = Value.Remove(index, 1).Insert(index, character.ToString(EnCulture));
                         fireEvent = true;
                     }
                 }

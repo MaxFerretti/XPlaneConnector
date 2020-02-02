@@ -7,3 +7,4 @@ C:\Users\mferr\source\repos\XPlaneConnector\XPlaneConnector\XPlaneConnector\bin\
 C:\Users\mferr\source\repos\XPlaneConnector\XPlaneConnector\XPlaneConnector\bin\Debug\XPlaneConnector.pdb
 C:\Users\mferr\source\repos\XPlaneConnector\XPlaneConnector\XPlaneConnector\obj\Debug\XPlaneConnector.dll
 C:\Users\mferr\source\repos\XPlaneConnector\XPlaneConnector\XPlaneConnector\obj\Debug\XPlaneConnector.pdb
+C:\Users\mferr\source\repos\XPlaneConnector\XPlaneConnector\XPlaneConnector\obj\Debug\XPlaneConnector.csprojAssemblyReference.cache

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -9,11 +10,14 @@ using System.Threading.Tasks;
 
 namespace XPlaneConnector.Core
 {
-    public class XPlaneConnector : IDisposable
+    public class XPlaneConnectorCore : IDisposable
     {
-        public int CheckInterval_ms = 1000;
-        public TimeSpan MaxDataRefAge = TimeSpan.FromSeconds(5);
+        private const int CheckInterval_ms = 1000;
+        private TimeSpan MaxDataRefAge = TimeSpan.FromSeconds(5);
 
+        private CultureInfo EnCulture = new CultureInfo("en-US");
+
+        private UdpClient server;
         private UdpClient client;
         private IPEndPoint XPlaneEP;
         private CancellationTokenSource ts;
@@ -32,7 +36,7 @@ namespace XPlaneConnector.Core
         private List<DataRefElement> DataRefs;
 
         public DateTime LastReceive { get; internal set; }
-        public byte[] LastBuffer { get; internal set; }
+        public IEnumerable<byte> LastBuffer { get; internal set; }
         public IPEndPoint LocalEP
         {
             get
@@ -46,7 +50,7 @@ namespace XPlaneConnector.Core
         /// </summary>
         /// <param name="ip">IP of the machine running X-Plane, default 127.0.0.1 (localhost)</param>
         /// <param name="xplanePort">Port the machine running X-Plane is listening for, default 49000</param>
-        public XPlaneConnector(string ip = "127.0.0.1", int xplanePort = 49000)
+        public XPlaneConnectorCore(string ip = "127.0.0.1", int xplanePort = 49000)
         {
             XPlaneEP = new IPEndPoint(IPAddress.Parse(ip), xplanePort);
             DataRefs = new List<DataRefElement>();
@@ -60,7 +64,7 @@ namespace XPlaneConnector.Core
             client = new UdpClient();
             client.Connect(XPlaneEP.Address, XPlaneEP.Port);
 
-            var server = new UdpClient(LocalEP);
+            server = new UdpClient(LocalEP);
 
             ts = new CancellationTokenSource();
             var token = ts.Token;
@@ -69,7 +73,7 @@ namespace XPlaneConnector.Core
             {
                 while (!token.IsCancellationRequested)
                 {
-                    var response = await server.ReceiveAsync();
+                    var response = await server.ReceiveAsync().ConfigureAwait(false);
                     var raw = Encoding.UTF8.GetString(response.Buffer);
                     LastReceive = DateTime.Now;
                     LastBuffer = response.Buffer;
@@ -90,7 +94,7 @@ namespace XPlaneConnector.Core
                         if (dr.Age > MaxDataRefAge)
                             RequestDataRef(dr);
 
-                    await Task.Delay(CheckInterval_ms);
+                    await Task.Delay(CheckInterval_ms).ConfigureAwait(false);
                 }
 
             }, token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
@@ -139,6 +143,10 @@ namespace XPlaneConnector.Core
                             if (dr.Update(id, value))
                                 OnDataRefReceived?.Invoke(dr);
                     }
+                    catch(ArgumentException ex)
+                    {
+                        
+                    }
                     catch (Exception ex)
                     {
                         var error = ex.Message;
@@ -153,6 +161,9 @@ namespace XPlaneConnector.Core
         /// <param name="command">Command to send</param>
         public void SendCommand(XPlaneCommand command)
         {
+            if (command == null)
+                throw new ArgumentNullException(nameof(command));
+
             var dg = new XPDatagram();
             dg.Add("CMND");
             dg.Add(command.Command);
@@ -188,6 +199,9 @@ namespace XPlaneConnector.Core
         /// <param name="onchange">Callback invoked every time a change in the value is detected</param>
         public void Subscribe(DataRefElement dataref, int frequency = -1, Action<DataRefElement, float> onchange = null)
         {
+            if (dataref == null)
+                throw new ArgumentNullException(nameof(dataref));
+
             if (onchange != null)
                 dataref.OnValueChange += (e, v) => { onchange(e, v); };
 
@@ -209,6 +223,9 @@ namespace XPlaneConnector.Core
             //    dataref.OnValueChange += (e, v) => { onchange(e, v); };
 
             //Subscribe((DataRefElement)dataref, frequency);
+
+            if (dataref == null)
+                throw new ArgumentNullException(nameof(dataref));
 
             dataref.OnValueChange += (e, v) => { onchange(e, v); };
 
@@ -286,6 +303,9 @@ namespace XPlaneConnector.Core
         /// <param name="value">New value of the DataRef</param>
         public void SetDataRefValue(DataRefElement dataref, float value)
         {
+            if (dataref == null)
+                throw new ArgumentNullException(nameof(dataref));
+
             SetDataRefValue(dataref.DataRef, value);
         }
 
@@ -340,7 +360,7 @@ namespace XPlaneConnector.Core
             var dg = new XPDatagram();
             dg.Add("FAIL");
 
-            dg.Add(system.ToString());
+            dg.Add(system.ToString(EnCulture));
 
             client.Send(dg.Get(), dg.Len);
         }
@@ -354,15 +374,22 @@ namespace XPlaneConnector.Core
             var dg = new XPDatagram();
             dg.Add("RECO");
 
-            dg.Add(system.ToString());
+            dg.Add(system.ToString(EnCulture));
 
             client.Send(dg.Get(), dg.Len);
         }
 
-        public void Dispose()
+        protected virtual void Dispose(bool a)
         {
+            server?.Dispose();
             client?.Dispose();
             ts?.Dispose();
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

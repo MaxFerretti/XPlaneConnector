@@ -5,7 +5,7 @@ namespace XPlaneConnector.Core
 {
     public class XPDatagram
     {
-        public List<byte> Bytes { get; set; }
+        public List<byte> Bytes { get; }
 
         public XPDatagram()
         {
@@ -60,6 +60,9 @@ namespace XPlaneConnector.Core
         }
         public void Add(string value)
         {
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
+
             foreach (var character in value)
                 Bytes.Add((byte)character);
             Bytes.Add(0x00);

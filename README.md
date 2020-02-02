@@ -11,6 +11,10 @@ You can send commands and subscribe to DataRef.
 An event OnDataRefReceived is fired every time the value of a subscribed DataRef changes.
 Should XPlane crash and restart, this connector can detect that DataRefs aren't being updated and will automatically request a new subscription.
 
+## NEW 2020-02
+Support for DotNet.Core version 3.1 has been added. Please refer to XPlaneConnector.Core if you are using it in a DotNet.Core project.
+Minor fixes on code stability and better code documentation has been added.
+
 ## Usage
 NOTE: Every DataRef is always a float, even if the data type is different (int, bool, double, string, array).
 So if you need a bool you will obtain a float that is either 0 or 1.

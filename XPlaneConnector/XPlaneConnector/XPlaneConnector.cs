@@ -279,9 +279,9 @@ namespace XPlaneConnector
         /// <param name="dataref">DataRef to unsubscribe to</param>
         public void Unsubscribe(string dataref)
         {
-            var dr = DataRefs.SingleOrDefault(d => d.DataRef == dataref);
+            var dr_list = DataRefs.Where(d => d.DataRef == dataref).ToArray();
 
-            if (dr != null)
+            foreach(var dr in dr_list)
             {
                 var dg = new XPDatagram();
                 dg.Add("RREF");
@@ -291,6 +291,7 @@ namespace XPlaneConnector
                 dg.FillTo(413);
 
                 client.Send(dg.Get(), dg.Len);
+                DataRefs.Remove(dr);
 
                 OnLog?.Invoke($"Unsubscribed from {dataref}");
             }

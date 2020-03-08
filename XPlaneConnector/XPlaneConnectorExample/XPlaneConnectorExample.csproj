@@ -80,7 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XPlaneConnector\XPlaneConnector.csproj">
-      <Project>{2ebbe087-4398-4f77-8abf-aa4962dbd637}</Project>
+      <Project>{a5aaa610-0ff3-4526-a103-fdc7f13efcaa}</Project>
       <Name>XPlaneConnector</Name>
     </ProjectReference>
   </ItemGroup>

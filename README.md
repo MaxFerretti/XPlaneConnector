@@ -1,20 +1,14 @@
 # XPlaneConnector
 
-## UPDATE TO VERSION 1.1
-This version has been updated to manage string type DataRef and a compile time list of DataRefs and Commands.
-An example project has been added with a very simple usage on a Windows Form project.
+## UPDATE TO VERSION 1.2
+This version include support for .NET Standard 2.0 and .NET 4.6 in a single package
 
 Read data and send commands to XPlane via UDP
 
-XPlaneConnector can run on a raspberry or similar using Mono.
+XPlaneConnector can run on a raspberry or similar using .Net Core.
 You can send commands and subscribe to DataRef.
 An event OnDataRefReceived is fired every time the value of a subscribed DataRef changes.
 Should XPlane crash and restart, this connector can detect that DataRefs aren't being updated and will automatically request a new subscription.
-
-## NEW 2020-02
-A new repository has been created for .NET Core 2.2 support.
-Please visit it here: 
-[XPlaneConnector.Core on GitHub](https://maxferretti.github.io/XPlaneConnector.Core/)
 
 ## Usage
 NOTE: Every DataRef is always a float, even if the data type is different (int, bool, double, string, array).

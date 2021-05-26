@@ -1,5 +1,15 @@
 # XPlaneConnector
 
+## UPDATE TO VERSION 1.3
+Some bug fixes in this release and library separation.
+All DataRefs and Commands definitions has been migrated to a separate library XPlaneConnector.DataRefs
+In this way the library itself keep its size as low as possible, while DataRefs can be references only if needed.
+DataRefs versioning is now consistent with X-Plane version for easier matching, and it will be easier to update DataRefs and Commands definitions separately from the Connector itself.
+In the future further libraries can be added (i.e. Zibo DataRefs or other add-ons specific DataRefs).
+
+
+
+
 ## UPDATE TO VERSION 1.2
 This version include support for .NET Standard 2.0 and .NET 4.6 in a single package
 

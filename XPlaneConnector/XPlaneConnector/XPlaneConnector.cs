@@ -108,7 +108,8 @@ namespace XPlaneConnector
         {
             if (client != null)
             {
-                foreach (var dr in DataRefs)
+                var localDataRefs = DataRefs.ToArray();
+                foreach (var dr in localDataRefs)
                     Unsubscribe(dr.DataRef);
 
                 if (ts != null)
@@ -139,7 +140,8 @@ namespace XPlaneConnector
                     {
                         var value = BitConverter.ToSingle(buffer, pos);
                         pos += 4;
-                        foreach (var dr in DataRefs)
+                        var localDataRefs = DataRefs.ToArray();
+                        foreach (var dr in localDataRefs)
                             if (dr.Update(id, value))
                                 OnDataRefReceived?.Invoke(dr);
                     }
@@ -189,6 +191,11 @@ namespace XPlaneConnector
             }, tokenSource.Token);
 
             return tokenSource;
+        }
+
+        public void StopCommand(CancellationTokenSource token)
+        {
+            token.Cancel();
         }
 
         /// <summary>

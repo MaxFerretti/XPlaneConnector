@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>11.51</Version>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Authors>Max Ferretti</Authors>
+    <Description>Add-on library containing DataRefs and Commands definition to interact with X-Plane</Description>
+    <PackageProjectUrl>https://maxferretti.github.io/XPlaneConnector/</PackageProjectUrl>
+    <PackageLicenseFile>license.txt</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/MaxFerretti/XPlaneConnector</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>XPlane DataRef</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\XPlaneConnector\XPlaneConnector.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="license.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

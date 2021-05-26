@@ -1,4 +1,6 @@
-﻿namespace XPlaneConnector
+﻿using System;
+
+namespace XPlaneConnector
 {
     public class StringDataRefElement
     {
@@ -7,6 +9,8 @@
         public int Frequency { get; set; }
         public int StringLenght { get; set; }
         public string Value { get; set; }
+        public DateTime LastUpdateTime { get; set; }
+        private TimeSpan MaxAge = TimeSpan.FromSeconds(5);
 
         private int CharactersInitialized;
 
@@ -25,6 +29,14 @@
         {
             lock (lockElement)
             {
+                if( (DateTime.Now - LastUpdateTime) > MaxAge)
+                {
+                    // The string has changed, this is the first character received of the new string, so we invalidate the previous string
+                    CharactersInitialized = 0;
+                    Value = "";
+                }
+                LastUpdateTime = DateTime.Now;
+
                 var fireEvent = !IsCompletelyInitialized;
 
                 if (!IsCompletelyInitialized)

@@ -79,6 +79,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\XPlaneConnector.DataRefs\XPlaneConnector.DataRefs.csproj">
+      <Project>{c4d916ba-6e41-4d97-9963-f8a702bf2806}</Project>
+      <Name>XPlaneConnector.DataRefs</Name>
+    </ProjectReference>
     <ProjectReference Include="..\XPlaneConnector\XPlaneConnector.csproj">
       <Project>{a5aaa610-0ff3-4526-a103-fdc7f13efcaa}</Project>
       <Name>XPlaneConnector</Name>

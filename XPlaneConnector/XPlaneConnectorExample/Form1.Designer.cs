@@ -40,9 +40,10 @@
             // 
             // btStart
             // 
-            this.btStart.Location = new System.Drawing.Point(12, 12);
+            this.btStart.Location = new System.Drawing.Point(9, 10);
+            this.btStart.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btStart.Name = "btStart";
-            this.btStart.Size = new System.Drawing.Size(75, 23);
+            this.btStart.Size = new System.Drawing.Size(56, 19);
             this.btStart.TabIndex = 1;
             this.btStart.Text = "Start";
             this.btStart.UseVisualStyleBackColor = true;
@@ -51,9 +52,10 @@
             // btBatteryOn
             // 
             this.btBatteryOn.BackColor = System.Drawing.Color.Green;
-            this.btBatteryOn.Location = new System.Drawing.Point(12, 318);
+            this.btBatteryOn.Location = new System.Drawing.Point(9, 258);
+            this.btBatteryOn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btBatteryOn.Name = "btBatteryOn";
-            this.btBatteryOn.Size = new System.Drawing.Size(75, 23);
+            this.btBatteryOn.Size = new System.Drawing.Size(56, 19);
             this.btBatteryOn.TabIndex = 2;
             this.btBatteryOn.Text = "Batt ON";
             this.btBatteryOn.UseVisualStyleBackColor = false;
@@ -61,18 +63,20 @@
             // 
             // tbOut
             // 
-            this.tbOut.Location = new System.Drawing.Point(12, 41);
+            this.tbOut.Location = new System.Drawing.Point(9, 33);
+            this.tbOut.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tbOut.Multiline = true;
             this.tbOut.Name = "tbOut";
-            this.tbOut.Size = new System.Drawing.Size(732, 271);
+            this.tbOut.Size = new System.Drawing.Size(550, 221);
             this.tbOut.TabIndex = 3;
             // 
             // btBatteryOff
             // 
             this.btBatteryOff.BackColor = System.Drawing.Color.Red;
-            this.btBatteryOff.Location = new System.Drawing.Point(93, 318);
+            this.btBatteryOff.Location = new System.Drawing.Point(70, 258);
+            this.btBatteryOff.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btBatteryOff.Name = "btBatteryOff";
-            this.btBatteryOff.Size = new System.Drawing.Size(75, 23);
+            this.btBatteryOff.Size = new System.Drawing.Size(56, 19);
             this.btBatteryOff.TabIndex = 4;
             this.btBatteryOff.Text = "Batt OFF";
             this.btBatteryOff.UseVisualStyleBackColor = false;
@@ -80,9 +84,10 @@
             // 
             // btNavUp
             // 
-            this.btNavUp.Location = new System.Drawing.Point(669, 318);
+            this.btNavUp.Location = new System.Drawing.Point(502, 258);
+            this.btNavUp.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btNavUp.Name = "btNavUp";
-            this.btNavUp.Size = new System.Drawing.Size(75, 23);
+            this.btNavUp.Size = new System.Drawing.Size(56, 19);
             this.btNavUp.TabIndex = 5;
             this.btNavUp.Text = "NAV UP";
             this.btNavUp.UseVisualStyleBackColor = true;
@@ -90,9 +95,10 @@
             // 
             // btNavDown
             // 
-            this.btNavDown.Location = new System.Drawing.Point(669, 347);
+            this.btNavDown.Location = new System.Drawing.Point(502, 282);
+            this.btNavDown.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btNavDown.Name = "btNavDown";
-            this.btNavDown.Size = new System.Drawing.Size(75, 23);
+            this.btNavDown.Size = new System.Drawing.Size(56, 19);
             this.btNavDown.TabIndex = 6;
             this.btNavDown.Text = "NAV DW";
             this.btNavDown.UseVisualStyleBackColor = true;
@@ -100,9 +106,10 @@
             // 
             // btQuit
             // 
-            this.btQuit.Location = new System.Drawing.Point(12, 349);
+            this.btQuit.Location = new System.Drawing.Point(9, 284);
+            this.btQuit.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btQuit.Name = "btQuit";
-            this.btQuit.Size = new System.Drawing.Size(75, 23);
+            this.btQuit.Size = new System.Drawing.Size(56, 19);
             this.btQuit.TabIndex = 7;
             this.btQuit.Text = "QUIT";
             this.btQuit.UseVisualStyleBackColor = true;
@@ -110,9 +117,10 @@
             // 
             // btnIgnite
             // 
-            this.btnIgnite.Location = new System.Drawing.Point(174, 318);
+            this.btnIgnite.Location = new System.Drawing.Point(130, 258);
+            this.btnIgnite.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnIgnite.Name = "btnIgnite";
-            this.btnIgnite.Size = new System.Drawing.Size(75, 23);
+            this.btnIgnite.Size = new System.Drawing.Size(56, 19);
             this.btnIgnite.TabIndex = 8;
             this.btnIgnite.Text = "IGNITE";
             this.btnIgnite.UseVisualStyleBackColor = true;
@@ -120,9 +128,9 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(756, 384);
+            this.ClientSize = new System.Drawing.Size(567, 312);
             this.Controls.Add(this.btnIgnite);
             this.Controls.Add(this.btQuit);
             this.Controls.Add(this.btNavDown);
@@ -131,6 +139,7 @@
             this.Controls.Add(this.tbOut);
             this.Controls.Add(this.btBatteryOn);
             this.Controls.Add(this.btStart);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Form1";
             this.Text = "X-Plane Connector Example";
             this.ResumeLayout(false);

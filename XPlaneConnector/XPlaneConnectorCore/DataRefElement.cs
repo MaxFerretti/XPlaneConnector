@@ -1,7 +1,6 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
-namespace XPlaneConnector
+namespace XPlaneConnectorCore
 {
     public class DataRefElement
     {

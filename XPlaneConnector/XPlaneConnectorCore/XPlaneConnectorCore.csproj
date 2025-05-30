@@ -10,6 +10,24 @@
     <PackageProjectUrl>https://github.com/MaxFerretti/XPlaneConnector</PackageProjectUrl>
     <RepositoryUrl>https://github.com/MaxFerretti/XPlaneConnector</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <Copyright>MIT</Copyright>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>XPlane,Connector</PackageTags>
+    <PackageLicenseFile>license.txt</PackageLicenseFile>
+    <AssemblyVersion>1.0.1</AssemblyVersion>
+    <FileVersion>1.0.1</FileVersion>
+    <Version>1.0.1</Version>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="license.txt">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>

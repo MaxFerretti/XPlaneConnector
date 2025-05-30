@@ -6,7 +6,7 @@ using System.Text;
 
 using XPlaneConnectorCore;
 
-namespace XPlaneConnector
+namespace XPlaneConnectorCore
 {
     public interface IXPlaneConnector : IDisposable
     {

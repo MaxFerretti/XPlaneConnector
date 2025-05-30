@@ -1,4 +1,4 @@
-﻿namespace XPlaneConnector
+﻿namespace XPlaneConnectorCore
 {
     public class XPDatagram
     {

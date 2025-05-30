@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace XPlaneConnector
+namespace XPlaneConnectorCore
 {
     public class StringDataRefElement
     {

@@ -3,7 +3,7 @@
 ## 2025 LATE MAY UPDATE 
 I migrated to a .NET 8 project.
 
-The original files are still there, the .NET 8 version goes under the name XPlaneConnectorCode.
+The original files are still there, the .NET 8 version goes under the name XPlaneConnectorCore.
 
 In this new version I did some refactoring to take better use of the await/async paradigm and reduce overhead while improving clarity.
 
@@ -12,6 +12,8 @@ A new IXPlaneConnector has been added to better support dependendy injection and
 StringDataRefElement has been redesigned to use a deterministic character buffer.
 
 StartCommand has been re-designed introducing a CommandTask record to provide a structured and cancellable execution of continuous commands.
+
+Refer to [XPlaneConnectorCore/README.md](https://github.com/MaxFerretti/XPlaneConnector/blob/master/XPlaneConnector/XPlaneConnectorCore/README.md) for usage examples.
 
 
 ## UPDATE TO VERSION 1.3

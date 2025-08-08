@@ -28,7 +28,7 @@ namespace XPlaneConnectorCore
     public class XPlaneConnector : IXPlaneConnector
     {
         private UdpClient server;
-        private readonly UdpClient client;
+        private UdpClient client;
         private CancellationTokenSource ts;
         private Task listenTask;
         private Task observerTask;
@@ -85,6 +85,11 @@ namespace XPlaneConnectorCore
 
                 foreach (var dr in DataRefs.Values)
                     await UnsubscribeAsync(dr.DataRef);
+
+                server?.Dispose();
+                client?.Dispose();
+                server = null;
+                client = null;
             }
         }
 

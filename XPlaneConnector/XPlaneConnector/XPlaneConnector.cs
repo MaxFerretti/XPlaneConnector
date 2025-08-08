@@ -118,9 +118,12 @@ namespace XPlaneConnector
                     Task.WaitAll(new[] { serverTask, observerTask }, timeout);
                     ts.Dispose();
                     ts = null;
-
-                    client.Close();
                 }
+
+                server?.Dispose();
+                client?.Dispose();
+                server = null;
+                client = null;
             }
         }
         private void ParseResponse(byte[] buffer)

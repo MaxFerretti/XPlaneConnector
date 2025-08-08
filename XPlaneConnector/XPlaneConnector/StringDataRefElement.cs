@@ -7,7 +7,7 @@ namespace XPlaneConnector
         private static readonly object lockElement = new object();
         public string DataRef { get; set; }
         public int Frequency { get; set; }
-        public int StringLenght { get; set; }
+        public int StringLength { get; set; }
         public string Value { get; set; }
         public DateTime LastUpdateTime { get; set; }
         private TimeSpan MaxAge = TimeSpan.FromSeconds(5);
@@ -18,7 +18,7 @@ namespace XPlaneConnector
         {
             get
             {
-                return CharactersInitialized >= StringLenght;
+                return CharactersInitialized >= StringLength;
             }
         }
 

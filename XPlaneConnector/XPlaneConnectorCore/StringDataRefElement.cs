@@ -9,7 +9,7 @@ namespace XPlaneConnectorCore
         
         public string DataRef { get; set; }
         public int Frequency { get; set; }
-        public int StringLenght { get; set; }
+        public int StringLength { get; set; }
         public string Value { get; private set; } = "";
 
         private readonly Stopwatch sw = new Stopwatch();
@@ -37,7 +37,7 @@ namespace XPlaneConnectorCore
                 throw new ArgumentOutOfRangeException("length");
 
             DataRef = dataRef;
-            StringLenght = length;
+            StringLength = length;
             _characters = new char[length];
             _received = new bool[length];
 
@@ -46,7 +46,7 @@ namespace XPlaneConnectorCore
 
         public void Update(int index, char character)
         {
-            if (index < 0 || index >= StringLenght)
+            if (index < 0 || index >= StringLength)
                 return;
 
             if (Age > MaxAge)

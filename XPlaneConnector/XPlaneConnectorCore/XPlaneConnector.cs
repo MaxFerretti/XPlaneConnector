@@ -202,7 +202,7 @@ namespace XPlaneConnectorCore
             if(onchange != null)    
                 dataref.OnValueChange += (e, v) => { onchange(e, v); };
 
-            for (var c = 0; c < dataref.StringLenght; c++)
+            for (var c = 0; c < dataref.StringLength; c++)
             {
                 var arrayElementDataRef = new DataRefElement($"{dataref.DataRef}[{c}]", "", "");
 
